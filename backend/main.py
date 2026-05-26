@@ -3,10 +3,17 @@ import anthropic
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from contextlib import asynccontextmanager
 from pydantic import BaseModel
-import rag
+from rag import load, search, load_clinicas, search_clinics
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    load()
+    load_clinicas()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,7 +23,6 @@ app.add_middleware(
 )
 
 client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-
 SYSTEM_PROMPT = """
 
 Eres Vera, la asistente de exploración estética de la plataforma. Tu misión es acompañar al usuario desde su duda inicial hasta encontrar el tratamiento y especialista adecuados.
@@ -63,6 +69,7 @@ FORMATO:
 - Puedes usar **negritas** para destacar conceptos clave
 - Puedes usar listas con - para opciones o pasos
 - Siempre termina con una pregunta o acción clara
+- Usa emojis con moderación, solo en momentos de transición o para suavizar temas: 👋 al saludar, ✨ al presentar opciones, 📍 al pedir ubicación, 💬 para invitar a escribir. Máximo 1 por mensaje.
 
 CUÁNDO USAR search_treatments:
 Usa la herramienta solo cuando el usuario haya mencionado zona, síntoma o tratamiento concreto.
@@ -83,6 +90,13 @@ REGLAS GENERALES:
 - Nunca repitas una pregunta que el usuario ya respondió en la conversación. Si ya mencionó zona, tratamiento o ciudad, úsalo directamente sin volver a preguntar.
 - Si el usuario menciona que es turismo médico o viene de fuera, oriéntale a especialistas en España y pregúntale si busca una región concreta o prefiere ver opciones en toda España, pero no le preguntes directamente por su ciudad o provincia de origen.
 
+FLUJO DE INFORMACIÓN — ORDEN OBLIGATORIO:
+Antes de mostrar clínicas o preguntar por ciudad, Vera debe haber cubierto en este orden:
+1. Zona de intervención clínica y objetivo del usuario
+2. Mostrar tratamiento(s) relevantes con search_query
+3. Explicar brevemente qué esperar: recuperación, resultados, fotos de antes y después, precios orientativos, valoraciones, experiencias
+4. Solo después preguntar por ciudad y activar show_clinics
+Si el usuario quiere saltarse pasos y pide clínicas directamente, puedes adelantar el flujo pero asegúrate de haber mostrado al menos el tratamiento con su información básica.
 
 """
 
@@ -105,7 +119,15 @@ TOOLS = [
                 "search_query": {
                     "type": "string",
                     "description": "Query de búsqueda solo cuando el usuario haya confirmado explícitamente qué tratamiento quiere. No busques mientras el usuario todavía está explorando zona u objetivo. Vacío si no está claro aún."
-                    }
+                    },
+                "show_clinics": {
+                    "type": "boolean",
+                    "description": "Ponlo en true cuando el usuario haya confirmado tratamiento Y ciudad y esté listo para ver especialistas."
+                },
+                "ciudad": {
+                    "type": "string",
+                    "description": "Ciudad que mencionó el usuario. Obligatorio cuando show_clinics es true. Usar 'toda España' si eligió ver todo."
+                }
             },
             "required": ["reply"]
         }
@@ -118,10 +140,6 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: list[Message]
-
-@app.on_event("startup")
-async def startup():
-    rag.load()
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
@@ -139,15 +157,18 @@ async def chat(request: ChatRequest):
     reply = ""
     chips = []
     cards = []
+    clinics = []
 
     for block in response.content:
         if block.type == "tool_use" and block.name == "respond":
             reply = block.input.get("reply", "")
             chips = block.input.get("chips", [])
             query = block.input.get("search_query", "")
-            cards = rag.search(query) if query else []
-
-    return {"reply": reply, "context": cards, "chips": chips}
+            cards = search(query) if query else []
+            if block.input.get("show_clinics"):
+                ciudad = block.input.get("ciudad", "")
+                clinics = search_clinics(ciudad)
+    return {"reply": reply, "context": cards, "chips": chips, "clinics": clinics}
 
 
 app.mount("/", StaticFiles(directory="../public", html=True), name="static")

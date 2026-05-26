@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vera — Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Vera — Tu asistente de estética</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -22,295 +22,72 @@
     --border: rgba(0,0,0,0.08);
   }
 
-  body {
+  html, body {
+    height: 100%;
     font-family: 'DM Sans', sans-serif;
     background: var(--cream);
     color: var(--ink);
-    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .app {
     display: flex;
     flex-direction: column;
-  }
-
-  /* ── MOCK NAVBAR ── */
-  .navbar {
+    height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
     background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--green);
-    letter-spacing: -0.5px;
-  }
-  .logo span { color: var(--ink); font-style: italic; }
-  .nav-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 13px;
-    color: var(--ink-mid);
-    text-decoration: none;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-  }
-  .nav-cta {
-    background: var(--green);
-    color: #fff !important;
-    padding: 7px 16px;
-    border-radius: 20px;
-    font-weight: 500 !important;
-    font-size: 13px !important;
+    position: relative;
   }
 
-  /* ── HERO SEARCH ── */
-  .hero {
-    background: #fff;
-    padding: 48px 32px 40px;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
-  }
-  .hero-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 42px;
-    line-height: 1.1;
-    color: var(--ink);
-    margin-bottom: 8px;
-    letter-spacing: -1px;
-  }
-  .hero h1 em { color: var(--green); font-style: italic; }
-  .hero p {
-    font-size: 15px;
-    color: var(--ink-mid);
-    margin-bottom: 28px;
-    font-weight: 300;
-  }
-  .search-bar {
-    display: flex;
-    max-width: 560px;
-    margin: 0 auto 14px;
-    background: var(--cream);
-    border: 1.5px solid var(--border);
-    border-radius: 40px;
-    overflow: hidden;
-    padding: 6px 6px 6px 20px;
-    gap: 8px;
-    align-items: center;
-    transition: border-color 0.2s;
-  }
-  .search-bar:focus-within { border-color: var(--green-mid); }
-  .search-bar input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--ink);
-    outline: none;
-  }
-  .search-bar input::placeholder { color: var(--ink-light); }
-  .search-bar button {
-    background: var(--green);
-    color: #fff;
-    border: none;
-    border-radius: 30px;
-    padding: 9px 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  .search-tags {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .search-tag {
-    font-size: 12px;
-    color: var(--ink-mid);
-    background: var(--cream-dark);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 4px 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .search-tag:hover { background: var(--green-light); border-color: var(--green-mid); color: var(--green-dark); }
-
-  /* ── VERA ENTRY POINT ── */
-  .vera-entry {
-    max-width: 560px;
-    margin: 20px auto 0;
-    background: var(--green-light);
-    border: 1px solid rgba(29,158,117,0.2);
-    border-radius: 14px;
-    padding: 12px 16px;
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    padding: 14px 18px;
     display: flex;
     align-items: center;
     gap: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .vera-entry:hover { background: #d3f0e6; border-color: var(--green-mid); transform: translateY(-1px); }
-  .vera-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--green);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 500; font-size: 14px;
     flex-shrink: 0;
   }
-  .vera-entry-text { flex: 1; }
-  .vera-entry-text strong { display: block; font-size: 13px; font-weight: 500; color: var(--green-dark); }
-  .vera-entry-text span { font-size: 12px; color: var(--ink-mid); }
-  .vera-entry-arrow { color: var(--green); font-size: 18px; }
-
-  /* ── CONTENT GRID ── */
-  .content { max-width: 1100px; margin: 40px auto; padding: 0 32px; }
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .section-header h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--ink);
-  }
-  .section-header a { font-size: 12px; color: var(--green); text-decoration: none; margin-left: auto; }
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 40px;
-  }
-  .card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-  .card-img {
-    height: 130px;
-    background: var(--cream-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 32px;
-  }
-  .card-body { padding: 12px 14px; }
-  .card-body h3 { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
-  .card-meta { font-size: 11px; color: var(--ink-light); display: flex; gap: 8px; }
-  .card-meta .price { color: var(--ink-mid); font-weight: 500; }
-  .card-meta .rating { color: var(--green); }
-
-  /* ── CHAT WIDGET ── */
-  .chat-launcher {
-    position: fixed;
-    bottom: 28px; right: 28px;
-    background: var(--green);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 22px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 20px rgba(29,158,117,0.35);
-    transition: all 0.2s;
-    z-index: 100;
-  }
-  .chat-launcher:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,158,117,0.4); }
-  .launcher-dot {
-    width: 8px; height: 8px;
-    background: #7fffce;
+  .header-avatar {
+    width: 42px; height: 42px;
     border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 17px; color: #fff;
+    flex-shrink: 0;
+  }
+  .header-info { flex: 1; }
+  .header-info strong { display: block; color: #fff; font-size: 16px; font-weight: 500; }
+  .header-status {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    background: #7fffce; border-radius: 50%;
     animation: blink 2s ease-in-out infinite;
   }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .header-actions { display: flex; gap: 8px; }
+  .header-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    color: #fff;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .header-btn:hover { background: rgba(255,255,255,0.28); }
 
-  .chat-panel {
-    position: fixed;
-    bottom: 28px; right: 28px;
-    width: 380px;
-    height: 580px;
-    background: #fff;
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 16px 60px rgba(0,0,0,0.18);
-    z-index: 100;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px) scale(0.97);
-    pointer-events: none;
-    transition: opacity 0.25s, transform 0.25s;
-  }
-  .chat-panel.open {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: all;
-  }
-
-  .chat-header {
-    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-    padding: 16px 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-  }
-  .chat-header-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 600; font-size: 16px; color: #fff;
-    border: 1.5px solid rgba(255,255,255,0.3);
-  }
-  .chat-header-info { flex: 1; }
-  .chat-header-info strong { display: block; color: #fff; font-size: 15px; font-weight: 500; }
-  .chat-header-info span { font-size: 11px; color: rgba(255,255,255,0.7); }
-  .chat-header-status {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 11px; color: rgba(255,255,255,0.8);
-  }
-  .status-dot { width: 6px; height: 6px; background: #7fffce; border-radius: 50%; }
-  .chat-close {
-    background: none; border: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 22px; cursor: pointer;
-    padding: 4px; line-height: 1;
-    transition: color 0.15s;
-  }
-  .chat-close:hover { color: #fff; }
-
-  .chat-messages {
+  /* ── MENSAJES ── */
+  .messages {
     flex: 1;
     overflow-y: auto;
     padding: 18px 16px 12px;
@@ -319,55 +96,35 @@
     gap: 4px;
     scroll-behavior: smooth;
   }
-  .chat-messages::-webkit-scrollbar { width: 4px; }
-  .chat-messages::-webkit-scrollbar-track { background: transparent; }
-  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .messages::-webkit-scrollbar { width: 3px; }
+  .messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-  .msg-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
+  .msg-row { display: flex; gap: 8px; margin-bottom: 8px; }
   .msg-row.user { justify-content: flex-end; }
   .msg-avatar {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--green);
-    color: #fff;
-    font-size: 11px; font-weight: 500;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    font-size: 12px; font-weight: 500;
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    align-self: flex-end;
+    flex-shrink: 0; align-self: flex-end;
   }
   .msg-bubble {
-    max-width: 78%;
-    padding: 10px 14px;
+    max-width: 80%;
+    padding: 11px 15px;
     border-radius: 18px;
-    font-size: 13.5px;
-    line-height: 1.55;
+    font-size: 14px;
+    line-height: 1.6;
     white-space: pre-wrap;
   }
-  .msg-row.assistant .msg-bubble {
-    background: #f4f3f0;
-    color: var(--ink);
-    border-bottom-left-radius: 4px;
-  }
-  .msg-row.user .msg-bubble {
-    background: var(--green);
-    color: #fff;
-    border-bottom-right-radius: 4px;
-  }
+  .msg-row.assistant .msg-bubble { background: #f4f3f0; color: var(--ink); border-bottom-left-radius: 4px; }
+  .msg-row.user .msg-bubble { background: var(--green); color: #fff; border-bottom-right-radius: 4px; }
 
-  /* Treatment cards in chat */
+  /* ── TREATMENT CARDS ── */
   .chat-cards { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
   .chat-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    text-decoration: none;
-    color: var(--ink);
-    display: block;
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 12px;
+    text-decoration: none; color: var(--ink); display: block;
     transition: border-color 0.15s, background 0.15s;
   }
   .chat-card:hover { border-color: var(--green-mid); background: var(--green-light); }
@@ -375,37 +132,48 @@
   .chat-card-meta { font-size: 11px; color: var(--ink-light); display: flex; gap: 8px; flex-wrap: wrap; }
   .chat-card-meta .cc-price { color: var(--ink-mid); font-weight: 500; }
   .chat-card-meta .cc-rating { color: var(--green); }
-  .chat-card-arrow { float: right; color: var(--green-mid); font-size: 12px; margin-top: -1px; }
+  .chat-card-arrow { float: right; color: var(--green-mid); font-size: 13px; }
 
-  /* Chips */
-  .chips-wrap { display: flex; flex-direction: column; gap: 7px; margin-bottom: 8px; }
+  /* ── CLINIC CARDS ── */
+  .clinic-cards { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .clinic-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 14px;
+    text-decoration: none; color: var(--ink); display: block;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .clinic-card:hover { border-color: var(--green-mid); box-shadow: 0 2px 12px rgba(29,158,117,0.1); }
+  .clinic-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+  .clinic-name { font-size: 13px; font-weight: 500; }
+  .clinic-rating {
+    font-size: 11px; color: var(--green);
+    background: var(--green-light);
+    padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0;
+  }
+  .clinic-address { font-size: 12px; color: var(--ink-light); margin-bottom: 7px; }
+  .clinic-footer { display: flex; align-items: center; justify-content: space-between; }
+  .clinic-phone { font-size: 12px; color: var(--green-dark); font-weight: 500; }
+  .clinic-link { font-size: 11px; color: var(--green); }
+
+  /* ── CHIPS ── */
+  .chips-wrap { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
   .chip {
-    background: #fff;
-    border: 1px solid #e4e3df;
-    border-radius: 12px;
-    padding: 9px 13px;
-    font-size: 13px;
-    cursor: pointer;
-    text-align: left;
-    color: var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-    line-height: 1.4;
+    background: #fff; border: 1px solid #e4e3df;
+    border-radius: 14px; padding: 11px 15px;
+    font-size: 14px; cursor: pointer; text-align: left;
+    color: var(--ink); font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s; line-height: 1.4;
   }
   .chip:hover { background: var(--green-light); border-color: var(--green-mid); color: var(--green-dark); }
 
-  /* Typing indicator */
+  /* ── TYPING ── */
   .typing-row { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 8px; }
   .typing-bubble {
-    background: #f4f3f0;
-    border-radius: 18px 18px 18px 4px;
-    padding: 12px 16px;
-    display: flex; gap: 5px; align-items: center;
+    background: #f4f3f0; border-radius: 18px 18px 18px 4px;
+    padding: 13px 16px; display: flex; gap: 5px; align-items: center;
   }
   .typing-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: #bbb;
+    width: 7px; height: 7px; border-radius: 50%; background: #bbb;
     animation: typing 1.3s ease-in-out infinite;
   }
   .typing-dot:nth-child(2) { animation-delay: 0.18s; }
@@ -415,189 +183,120 @@
     50% { opacity: 1; transform: translateY(-3px); }
   }
 
-  /* Input */
-  .chat-input-area {
-    padding: 12px 14px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-shrink: 0;
-    background: #fff;
+  /* ── INPUT ── */
+  .input-area {
+    padding: 12px 14px; border-top: 1px solid var(--border);
+    display: flex; gap: 8px; align-items: center;
+    flex-shrink: 0; background: #fff;
   }
   .chat-input {
-    flex: 1;
-    border: 1.5px solid #e4e3df;
-    border-radius: 14px;
-    padding: 9px 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13.5px;
-    background: var(--cream);
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.15s;
-    resize: none;
-    height: 42px;
-    line-height: 1.4;
+    flex: 1; border: 1.5px solid #e4e3df;
+    border-radius: 16px; padding: 11px 16px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    background: var(--cream); color: var(--ink);
+    outline: none; transition: border-color 0.15s;
   }
   .chat-input:focus { border-color: var(--green-mid); background: #fff; }
   .chat-input::placeholder { color: var(--ink-light); }
   .send-btn {
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    background: var(--green);
-    border: none;
-    color: #fff;
-    font-size: 17px;
-    cursor: pointer;
+    width: 44px; height: 44px; border-radius: 14px;
+    background: var(--green); border: none; color: #fff;
+    font-size: 18px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.15s, transform 0.1s;
+    flex-shrink: 0; transition: background 0.15s, transform 0.1s;
   }
   .send-btn:hover:not(:disabled) { background: var(--green-dark); }
   .send-btn:active:not(:disabled) { transform: scale(0.94); }
-  .send-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
-  .chat-footer-note {
-    text-align: center;
-    font-size: 10px;
-    color: var(--ink-light);
-    padding: 6px 14px 10px;
-    background: #fff;
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .footer-note {
+    text-align: center; font-size: 10px; color: var(--ink-light);
+    padding: 5px 14px 10px; background: #fff;
   }
+
+  /* ── PANEL ENLACES ── */
+  .links-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.3); z-index: 50;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .links-overlay.open { opacity: 1; pointer-events: all; }
+  .links-panel {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: #fff; border-radius: 20px 20px 0 0;
+    padding: 0 0 24px; max-height: 65vh; overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 51;
+  }
+  .links-panel.open { transform: translateY(0); }
+  .links-handle { width: 36px; height: 4px; background: #ddd; border-radius: 2px; margin: 12px auto 16px; }
+  .links-title { font-size: 14px; font-weight: 500; padding: 0 18px 12px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+  .links-empty { font-size: 13px; color: var(--ink-light); padding: 8px 18px; }
+  .link-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 18px; text-decoration: none; color: var(--ink);
+    transition: background 0.15s;
+  }
+  .link-item:hover { background: var(--cream); }
+  .link-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .link-item-text { flex: 1; min-width: 0; }
+  .link-item-name { font-size: 13px; font-weight: 500; }
+  .link-item-url { font-size: 11px; color: var(--ink-light); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .link-arrow { font-size: 12px; color: var(--green-mid); }
 </style>
 </head>
 <body>
+<div class="app">
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="logo">multi<span>estética</span></div>
-  <ul class="nav-links">
-    <li><a href="#">Tratamientos</a></li>
-    <li><a href="#">Clínicas</a></li>
-    <li><a href="#">Experiencias</a></li>
-    <li><a href="#">Artículos</a></li>
-    <li><a href="#" class="nav-cta">Acceder</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <p class="hero-label">Tu guía de medicina estética</p>
-  <h1>Encuentra el tratamiento<br><em>perfecto para ti</em></h1>
-  <p>Más de 114 tratamientos verificados · Especialistas reales</p>
-  <div class="search-bar">
-    <input type="text" placeholder="Busca un tratamiento, clínica o especialista...">
-    <button>Buscar</button>
-  </div>
-  <div class="search-tags">
-    <span class="search-tag">Tratamiento Antiacné</span>
-    <span class="search-tag">Rinoplastia</span>
-    <span class="search-tag">Liposucción</span>
-    <span class="search-tag">Ácido hialurónico</span>
-    <span class="search-tag">Lifting facial</span>
-  </div>
-  <div class="vera-entry" onclick="openChat()">
-    <div class="vera-avatar">V</div>
-    <div class="vera-entry-text">
-      <strong>¿No sabes por dónde empezar? Habla con Vera</strong>
-      <span>Tu asistente de exploración estética · Responde al instante</span>
-    </div>
-    <span class="vera-entry-arrow">→</span>
-  </div>
-</section>
-
-<!-- CONTENT -->
-<div class="content">
-  <div class="section-header">
-    <h2>Tratamientos más consultados</h2>
-    <a href="#">Ver todos →</a>
-  </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-img">✨</div>
-      <div class="card-body">
-        <h3>Tratamiento AntiAcné</h3>
-        <div class="card-meta"><span class="price">Desde 250 €</span><span class="rating">★ 77%</span></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">💉</div>
-      <div class="card-body">
-        <h3>Ácido hialurónico</h3>
-        <div class="card-meta"><span class="price">Desde 250 €</span><span class="rating">★ 91%</span></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">🔬</div>
-      <div class="card-body">
-        <h3>Rinoplastia</h3>
-        <div class="card-meta"><span class="price">Desde 3.200 €</span><span class="rating">★ 89%</span></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">⚡</div>
-      <div class="card-body">
-        <h3>Liposucción</h3>
-        <div class="card-meta"><span class="price">Desde 2.800 €</span><span class="rating">★ 88%</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CHAT LAUNCHER -->
-<button class="chat-launcher" id="launcher" onclick="openChat()">
-  <div class="launcher-dot"></div>
-  Habla con Vera
-</button>
-
-<!-- CHAT PANEL -->
-<div class="chat-panel" id="chatPanel">
-  <div class="chat-header">
-    <div class="chat-header-avatar">V</div>
-    <div class="chat-header-info">
+  <div class="header">
+    <div class="header-avatar">V</div>
+    <div class="header-info">
       <strong>Vera</strong>
-      <span>Asistente de exploración estética</span>
+      <div class="header-status">
+        <div class="status-dot"></div>
+        <span>Asistente de exploración estética</span>
+      </div>
     </div>
-    <div class="chat-header-status">
-      <div class="status-dot"></div>
-      En línea
+    <div class="header-actions">
+      <button class="header-btn" onclick="toggleLinks()">🔗 Enlaces</button>
+      <button class="header-btn" onclick="resetChat()">↺ Nueva</button>
     </div>
-    <button class="chat-close" onclick="closeChat()">×</button>
   </div>
 
-  <div class="chat-messages" id="messages"></div>
+  <div class="messages" id="messages"></div>
 
-  <div class="chat-input-area">
-    <input
-      type="text"
-      class="chat-input"
-      id="chatInput"
+  <div class="input-area">
+    <input type="text" class="chat-input" id="chatInput"
       placeholder="Escríbeme tu pregunta..."
-      onkeydown="if(event.key==='Enter') sendMessage()"
-    >
+      onkeydown="if(event.key==='Enter') sendMessage()">
     <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>↑</button>
   </div>
-  <div class="chat-footer-note">Vera orienta, no diagnostica · Siempre consulta con un especialista</div>
+  <div class="footer-note">Vera orienta, no diagnostica · Consulta siempre con un especialista</div>
+
+  <div class="links-overlay" id="linksOverlay" onclick="toggleLinks()"></div>
+  <div class="links-panel" id="linksPanel">
+    <div class="links-handle"></div>
+    <div class="links-title">🔗 Enlaces de esta conversación</div>
+    <div id="linksList"><div class="links-empty">Aún no hay enlaces en esta conversación.</div></div>
+  </div>
 </div>
 
 <script>
   const API_URL = "https://vera-chatbot-ai.up.railway.app/api/chat";
 
-  const CHIPS = [
-    "Quiero mejorar algo pero no sé qué tratamiento",
-    "Tengo un tratamiento en mente y quiero saber más",
-    "Quiero ver opciones para una zona específica",
-    "Tengo dudas sobre algo que ya me hice",
-    "Vivo fuera y quiero hacerme un tratamiento en España",
+  const CHIPS_INICIO = [
+    "🔍 Quiero mejorar algo pero no sé qué tratamiento",
+    "💉 Tengo un tratamiento en mente y quiero saber más",
+    "📍 Quiero ver opciones para una zona específica",
+    "💬 Tengo dudas sobre algo que ya me hice",
+    "✈️ Vivo fuera y quiero hacerme un tratamiento en España",
   ];
 
   let messages = [];
   let isLoading = false;
-  let chatOpened = false;
+  let collectedLinks = [];
+  let linksInitialized = false;
 
-  const panel = document.getElementById("chatPanel");
-  const launcher = document.getElementById("launcher");
   const messagesEl = document.getElementById("messages");
   const input = document.getElementById("chatInput");
   const sendBtn = document.getElementById("sendBtn");
@@ -606,65 +305,102 @@
     sendBtn.disabled = !input.value.trim() || isLoading;
   });
 
-  function openChat() {
-    panel.classList.add("open");
-    launcher.style.display = "none";
-    if (!chatOpened) {
-      chatOpened = true;
-      addMessage("assistant", "Hola, soy Vera 👋\n¿Qué te trae por aquí hoy? Puedes contármelo con tus palabras o empezar por una de estas opciones:", []);
-      renderChips();
+  function init() {
+    addMessage("assistant", "Hola, soy Vera 👋\n¿Qué te trae por aquí hoy? Puedes contármelo con tus palabras o empezar por una de estas opciones:", [], []);
+    renderChips(CHIPS_INICIO);
+  }
+
+  function resetChat() {
+    messages = [];
+    collectedLinks = [];
+    linksInitialized = false;
+    messagesEl.innerHTML = "";
+    document.getElementById("linksList").innerHTML = '<div class="links-empty">Aún no hay enlaces en esta conversación.</div>';
+    input.value = "";
+    sendBtn.disabled = true;
+    init();
+  }
+
+  function toggleLinks() {
+    const overlay = document.getElementById("linksOverlay");
+    const panel = document.getElementById("linksPanel");
+    const isOpen = panel.classList.contains("open");
+    overlay.classList.toggle("open", !isOpen);
+    panel.classList.toggle("open", !isOpen);
+  }
+
+  function addLink(name, url) {
+    if (!url || collectedLinks.find(l => l.url === url)) return;
+    collectedLinks.push({ name, url });
+    const list = document.getElementById("linksList");
+    if (!linksInitialized) {
+      list.innerHTML = "";
+      linksInitialized = true;
     }
-    setTimeout(() => input.focus(), 300);
+    const a = document.createElement("a");
+    a.className = "link-item";
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.innerHTML = `
+      <div class="link-dot"></div>
+      <div class="link-item-text">
+        <div class="link-item-name">${name}</div>
+        <div class="link-item-url">${url.replace("https://www.multiestetica.com", "multiestetica.com")}</div>
+      </div>
+      <span class="link-arrow">→</span>`;
+    list.appendChild(a);
   }
 
-  function closeChat() {
-    panel.classList.remove("open");
-    launcher.style.display = "flex";
-  }
-
-  function renderChips() {
+  function renderChips(chipLabels) {
     const wrap = document.createElement("div");
     wrap.className = "chips-wrap";
-    wrap.id = "chipsWrap";
-    CHIPS.forEach(label => {
-      const btn = document.createElement("button");
-      btn.className = "chip";
-      btn.textContent = label;
-      btn.onclick = () => {
-        wrap.remove();
-        sendMessage(label);
-      };
-      wrap.appendChild(btn);
+    chipLabels.forEach(label => {
+      const isOtro = label.toLowerCase().includes("otro") || label.toLowerCase().includes("other");
+      const isVerToda = label.toLowerCase().includes("ver toda");
+      if (isOtro) {
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.className = "chip";
+        inp.placeholder = "Escribe aquí...";
+        inp.style.cursor = "text";
+        inp.style.background = "#fff";
+        inp.onkeydown = (e) => {
+          if (e.key === "Enter" && inp.value.trim()) { wrap.remove(); sendMessage(inp.value.trim()); }
+        };
+        wrap.appendChild(inp);
+      } else {
+        const btn = document.createElement("button");
+        btn.className = "chip";
+        btn.textContent = label;
+        btn.onclick = () => { wrap.remove(); sendMessage(label); };
+        wrap.appendChild(btn);
+      }
     });
     messagesEl.appendChild(wrap);
     scrollBottom();
   }
 
-  function addMessage(role, content, cards = []) {
+  function addMessage(role, content, cards = [], clinics = []) {
     messages.push({ role, content });
-
     const row = document.createElement("div");
     row.className = `msg-row ${role}`;
-
     if (role === "assistant") {
       const avatar = document.createElement("div");
       avatar.className = "msg-avatar";
       avatar.textContent = "V";
       row.appendChild(avatar);
     }
-
     const bubble = document.createElement("div");
     bubble.className = "msg-bubble";
     bubble.innerHTML = content
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
       .replace(/^- (.+)/gm, "<li>$1</li>")
-      .replace(/(<li>[\s\S]*<\/li>)/g, '<ul style="padding-left:16px;margin-top:8px;display:flex;flex-direction:column;gap:6px;">$1</ul>')
+      .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul style="padding-left:16px;margin-top:8px;display:flex;flex-direction:column;gap:5px;">$1</ul>')
       .replace(/\n/g, "<br>");
 
-    if (cards && cards.length > 0) {
+    if (cards?.length) {
       const cardsEl = document.createElement("div");
       cardsEl.className = "chat-cards";
       cards.forEach(card => {
@@ -682,8 +418,34 @@
             ${card.reviews ? `<span>${card.reviews} exp.</span>` : ""}
           </div>`;
         cardsEl.appendChild(a);
+        if (card.url) addLink(card.name, card.url);
       });
       bubble.appendChild(cardsEl);
+    }
+
+    if (clinics?.length) {
+      const clinicsEl = document.createElement("div");
+      clinicsEl.className = "clinic-cards";
+      clinics.forEach(clinic => {
+        const a = document.createElement("a");
+        a.className = "clinic-card";
+        a.href = clinic.url || "#";
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.innerHTML = `
+          <div class="clinic-header">
+            <div class="clinic-name">${clinic.name}</div>
+            ${clinic.rating ? `<div class="clinic-rating">★ ${clinic.rating} (${clinic.reviews || 0})</div>` : ""}
+          </div>
+          <div class="clinic-address">📍 ${clinic.address || clinic.ciudad}</div>
+          <div class="clinic-footer">
+            ${clinic.phone ? `<div class="clinic-phone">${clinic.phone}</div>` : "<div></div>"}
+            <div class="clinic-link">Ver perfil →</div>
+          </div>`;
+        clinicsEl.appendChild(a);
+        if (clinic.url) addLink(clinic.name, clinic.url);
+      });
+      bubble.appendChild(clinicsEl);
     }
 
     row.appendChild(bubble);
@@ -695,39 +457,26 @@
     const row = document.createElement("div");
     row.className = "typing-row";
     row.id = "typingIndicator";
-    row.innerHTML = `
-      <div class="msg-avatar">V</div>
-      <div class="typing-bubble">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>`;
+    row.innerHTML = `<div class="msg-avatar">V</div><div class="typing-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
     messagesEl.appendChild(row);
     scrollBottom();
   }
 
-  function hideTyping() {
-    document.getElementById("typingIndicator")?.remove();
-  }
+  function hideTyping() { document.getElementById("typingIndicator")?.remove(); }
 
   function scrollBottom() {
-    setTimeout(() => {
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }, 50);
+    setTimeout(() => { messagesEl.scrollTop = messagesEl.scrollHeight; }, 50);
   }
 
   async function sendMessage(text) {
     const content = text || input.value.trim();
     if (!content || isLoading) return;
-
     input.value = "";
     sendBtn.disabled = true;
-    document.getElementById("chipsWrap")?.remove();
-
+    messagesEl.querySelector(".chips-wrap")?.remove();
     addMessage("user", content);
     isLoading = true;
     showTyping();
-
     try {
       const res = await fetch(API_URL, {
         method: "POST",
@@ -736,53 +485,20 @@
           messages: messages.map(m => ({ role: m.role, content: m.content })),
         }),
       });
-
       const data = await res.json();
       hideTyping();
-      addMessage("assistant", data.reply, data.context || []);
-      if (data.chips?.length) {
-          const wrap = document.createElement("div");
-          wrap.className = "chips-wrap";
-          data.chips.forEach(label => {
-              if (label.toLowerCase().includes("ver toda")) {
-                  const btn = document.createElement("button");
-                  btn.className = "chip";
-                  btn.textContent = label;
-                  btn.onclick = () => { wrap.remove(); sendMessage(label); };
-                  wrap.appendChild(btn);
-              } else if (label.toLowerCase().includes("otro") || label.toLowerCase().includes("other")) {
-                  const inp = document.createElement("input");
-                  inp.type = "text";
-                  inp.className = "chip";
-                  inp.placeholder = "Escribe aquí...";
-                  inp.style.cursor = "text";
-                  inp.style.background = "#fff";
-                  inp.onkeydown = (e) => {
-                      if (e.key === "Enter" && inp.value.trim()) {
-                          wrap.remove();
-                          sendMessage(inp.value.trim());
-                      }
-                  };
-                  wrap.appendChild(inp);
-              } else {
-                  const btn = document.createElement("button");
-                  btn.className = "chip";
-                  btn.textContent = label;
-                  btn.onclick = () => { wrap.remove(); sendMessage(label); };
-                  wrap.appendChild(btn);
-              }
-          });
-          messagesEl.appendChild(wrap);
-          scrollBottom();
-      }
+      addMessage("assistant", data.reply, data.context || [], data.clinics || []);
+      if (data.chips?.length) renderChips(data.chips);
     } catch (e) {
       hideTyping();
-      addMessage("assistant", "Algo salió mal conectando con el servidor. ¿Lo intentamos de nuevo?");
+      addMessage("assistant", "Algo salió mal. ¿Lo intentamos de nuevo?");
     } finally {
       isLoading = false;
       sendBtn.disabled = !input.value.trim();
     }
   }
+
+  init();
 </script>
 </body>
 </html>

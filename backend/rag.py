@@ -11,6 +11,24 @@ USE_SEMANTIC = False
 EMBEDDINGS_PATH = Path(__file__).parent.parent / "data" / "embeddings.json"
 model = None
 embeddings_data = None
+CLINICAS_PATH = Path(__file__).parent.parent / "data" / "clinicas_rinoplastia.json"
+clinicas_data = None
+
+def load_clinicas():
+    global clinicas_data
+    if clinicas_data is not None:
+        return
+    with open(CLINICAS_PATH, encoding="utf-8") as f:
+        clinicas_data = json.load(f)
+
+def search_clinics(ciudad: str = "") -> list:
+    load_clinicas()
+    ciudad_lower = ciudad.lower().strip()
+    if ciudad_lower and ciudad_lower != "toda españa":
+        results = [c for c in clinicas_data if ciudad_lower in c.get("ciudad", "").lower()]
+    else:
+        results = clinicas_data
+    return sorted(results, key=lambda x: x.get("rating") or 0, reverse=True)[:5]
 
 def load():
     global model, embeddings_data
@@ -46,7 +64,7 @@ def search(query: str, top_k: int = 3) -> list:
 
     scores.sort(key=lambda x: x[0], reverse=True)
     best_score = scores[0][0] if scores else 0
-    top = [scores[0][1]] if best_score >= 3 else [d for _, d in scores[:top_k] if d[0] > 0]
+    top = [scores[0][1]] if best_score >= 3 else [doc for score, doc in scores[:top_k] if score > 0]
 
     return [
         {
