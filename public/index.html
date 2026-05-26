@@ -351,7 +351,16 @@
   ];
 
   let messages = [], isLoading = false, collectedLinks = [], linksInitialized = false, chatStarted = false;
-
+  let shownContent = {
+   tratamiento: false,
+   recuperacion: false,
+   valoraciones: false,
+   precios: false,
+   articulos: false,
+   fotos: false,
+   foro: false,
+  };
+ 
   const messagesEl = document.getElementById("messages");
   const input = document.getElementById("chatInput");
   const sendBtn = document.getElementById("sendBtn");
@@ -407,7 +416,9 @@
   }
 
   function resetChat() {
-    messages=[]; collectedLinks=[]; linksInitialized=false; clearSession();
+    messages=[]; collectedLinks=[]; linksInitialized=false;
+    shownContent = { tratamiento: false, recuperacion: false, valoraciones: false, precios: false, articulos: false, fotos: false, foro: false };
+    clearSession();
     messagesEl.innerHTML="";
     document.getElementById("linksList").innerHTML='<div class="links-empty">Aún no hay enlaces en esta conversación.</div>';
     input.value=""; sendBtn.disabled=true;
@@ -530,7 +541,10 @@
     try {
       const res=await fetch(API_URL,{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({messages:messages.map(m=>({role:m.role,content:m.content}))})
+        body: JSON.stringify({
+         messages: messages.map(m => ({ role: m.role, content: m.content })),
+         shown_content: shownContent,
+        })
       });
       const data=await res.json();
       hideTyping();
