@@ -75,7 +75,7 @@ FORMATO:
 
 CUÁNDO USAR search_treatments:
 Usa la herramienta solo cuando el usuario haya mencionado zona, síntoma o tratamiento concreto.
-Úsala: "flacidez cara", "botox", "grasa abdominal", "manchas piel"
+Úsala: "flacidez cara", "grasa abdominal", "manchas piel"
 No la uses: primer mensaje genérico, preguntas sobre precios generales, saludos
 
 FLUJO POST-TRATAMIENTO:
