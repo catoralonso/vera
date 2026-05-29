@@ -3,286 +3,344 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Vera — Tu asistente de estética</title>
+<title>Multiestetica — Encuentra tu especialista</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --green: #1D9E75;
-    --green-dark: #0F6E56;
-    --green-light: #E1F5EE;
-    --green-mid: #5DCAA5;
-    --cream: #faf9f7;
-    --cream-dark: #f2f0ec;
-    --ink: #1a1a18;
-    --ink-mid: #4a4a47;
-    --ink-light: #9a9a95;
-    --border: rgba(0,0,0,0.08);
+    --red: #C41230; --red-dark: #9E0E26;
+    --ink: #1a1a1a; --ink-mid: #555; --ink-light: #999;
+    --bg: #f5f5f5; --white: #fff; --border: rgba(0,0,0,0.08);
   }
+  html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); }
 
-  html, body {
-    height: 100%;
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    overflow: hidden;
-  }
+  /* ══ WEB LAYER ══ */
+  .web { min-height: 100vh; }
 
-  .app {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    max-width: 480px;
-    margin: 0 auto;
-    background: #fff;
-    position: relative;
+  .site-nav {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    padding: 0 32px; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
   }
+  .site-logo { font-size: 15px; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); display: flex; align-items: baseline; gap: 2px; }
+  .site-logo-dot { color: var(--red); }
+  .site-logo-sub { font-size: 9px; font-weight: 400; color: var(--ink-light); letter-spacing: 0.08em; margin-left: 4px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta { background: var(--red) !important; color: #fff !important; padding: 7px 16px; border-radius: 4px; }
 
-  /* ── HEADER ── */
-  .header {
-    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
+  .hero { background: var(--white); padding: 56px 32px 48px; text-align: center; border-bottom: 1px solid var(--border); }
+  .hero-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .hero h1 { font-size: 44px; font-weight: 900; line-height: 1.05; color: var(--ink); margin-bottom: 8px; letter-spacing: -1.5px; text-transform: uppercase; }
+  .hero h1 em { color: var(--red); font-style: normal; }
+  .hero p { font-size: 14px; color: var(--ink-mid); margin-bottom: 28px; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+
+  .search-bar {
+    display: flex; max-width: 580px; margin: 0 auto 14px;
+    background: var(--white); border: 2px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+    padding: 6px 6px 6px 20px; gap: 8px; align-items: center;
+    transition: border-color 0.2s;
   }
-  .header-avatar {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    border: 1.5px solid rgba(255,255,255,0.35);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 600; font-size: 17px; color: #fff;
-    flex-shrink: 0;
+  .search-bar:focus-within { border-color: var(--red); }
+  .search-bar input { flex: 1; border: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); outline: none; }
+  .search-bar input::placeholder { color: var(--ink-light); }
+  .search-bar button { background: var(--red); color: #fff; border: none; border-radius: 4px; padding: 10px 22px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.15s; }
+  .search-bar button:hover { background: var(--red-dark); }
+
+  .search-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .search-tag { font-size: 11px; color: var(--ink-mid); background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+  .search-tag:hover { background: #fef2f4; border-color: var(--red); color: var(--red); }
+
+  .vera-entry {
+    max-width: 580px; margin: 0 auto;
+    background: #fef2f4; border: 1.5px solid rgba(196,18,48,0.2);
+    border-radius: 8px; padding: 14px 18px;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer; transition: all 0.2s;
   }
-  .header-info { flex: 1; }
-  .header-info strong { display: block; color: #fff; font-size: 16px; font-weight: 500; }
-  .header-status {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 11px; color: rgba(255,255,255,0.75);
-    margin-top: 2px;
+  .vera-entry:hover { background: #fde8ec; border-color: var(--red); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(196,18,48,0.1); }
+  .vera-entry-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+  .vera-entry-text { flex: 1; }
+  .vera-entry-text strong { display: block; font-size: 13px; font-weight: 700; color: var(--red-dark); margin-bottom: 2px; }
+  .vera-entry-text span { font-size: 11px; color: var(--ink-mid); }
+  .vera-entry-arrow { color: var(--red); font-size: 18px; font-weight: 300; }
+
+  .content { max-width: 1100px; margin: 40px auto; padding: 0 32px; }
+  .section-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+  .section-header a { font-size: 11px; font-weight: 700; color: var(--red); text-decoration: none; margin-left: auto; letter-spacing: 0.06em; text-transform: uppercase; }
+  .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .card-img { height: 140px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 36px; }
+  .card-body { padding: 12px 14px; }
+  .card-body h3 { font-size: 13px; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .card-meta { font-size: 11px; color: var(--ink-light); display: flex; gap: 8px; }
+  .card-meta .price { color: var(--ink-mid); font-weight: 600; }
+  .card-meta .rating { color: var(--red); }
+
+  /* ══ GLOBITO FLOTANTE ══ */
+  .chat-launcher {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--red); color: #fff; border: none;
+    border-radius: 50px; padding: 14px 22px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 4px 20px rgba(196,18,48,0.4);
+    transition: all 0.2s; z-index: 200; letter-spacing: 0.02em;
   }
-  .status-dot {
-    width: 6px; height: 6px;
-    background: #7fffce; border-radius: 50%;
-    animation: blink 2s ease-in-out infinite;
-  }
+  .chat-launcher:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,18,48,0.45); }
+  .launcher-dot { width: 8px; height: 8px; background: #ffb3b3; border-radius: 50%; animation: blink 2s ease-in-out infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .header-actions { display: flex; gap: 8px; }
-  .header-btn {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 20px;
-    color: #fff;
-    font-size: 12px;
-    font-family: 'DM Sans', sans-serif;
-    padding: 5px 12px;
-    cursor: pointer;
-    transition: background 0.15s;
-    white-space: nowrap;
-  }
-  .header-btn:hover { background: rgba(255,255,255,0.28); }
 
-  /* ── MENSAJES ── */
-  .messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 18px 16px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  /* ══ CHAT OVERLAY ══ */
+  .chat-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column;
+    background: var(--white);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
+  }
+  .chat-overlay.open { transform: translateY(0); }
+
+  /* ── Chat header ── */
+  .chat-header {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    padding: 0 24px; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .chat-logo { font-size: 15px; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); display: flex; align-items: baseline; gap: 2px; }
+  .chat-logo-dot { color: var(--red); }
+  .chat-logo-sub { font-size: 9px; font-weight: 400; color: var(--ink-light); letter-spacing: 0.08em; margin-left: 4px; }
+  .chat-actions { display: flex; align-items: center; gap: 6px; }
+  .icon-btn { background: none; border: none; cursor: pointer; padding: 8px; border-radius: 8px; color: var(--ink-mid); display: flex; align-items: center; justify-content: center; transition: background 0.15s, color 0.15s; }
+  .icon-btn:hover { background: var(--bg); color: var(--ink); }
+  .icon-divider { width: 1px; height: 20px; background: var(--border); margin: 0 2px; }
+
+  /* ── Messages ── */
+  .chat-messages {
+    flex: 1; overflow-y: auto;
+    padding: 32px 24px 16px;
+    display: flex; flex-direction: column; gap: 4px;
     scroll-behavior: smooth;
+    max-width: 760px; width: 100%; margin: 0 auto;
+    align-self: center;
   }
-  .messages::-webkit-scrollbar { width: 3px; }
-  .messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .chat-messages::-webkit-scrollbar { width: 3px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
 
-  .msg-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .msg-row { display: flex; gap: 10px; margin-bottom: 4px; }
   .msg-row.user { justify-content: flex-end; }
-  .msg-avatar {
-    width: 30px; height: 30px; border-radius: 50%;
-    background: var(--green); color: #fff;
-    font-size: 12px; font-weight: 500;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; align-self: flex-end;
-  }
-  .msg-bubble {
-    max-width: 80%;
-    padding: 11px 15px;
-    border-radius: 18px;
-    font-size: 14px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-  }
-  .msg-row.assistant .msg-bubble { background: #f4f3f0; color: var(--ink); border-bottom-left-radius: 4px; }
-  .msg-row.user .msg-bubble { background: var(--green); color: #fff; border-bottom-right-radius: 4px; }
+  .vera-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--red); color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; align-self: flex-start; margin-top: 2px; }
+  .msg-content { max-width: 72%; display: flex; flex-direction: column; gap: 4px; }
+  .msg-row.user .msg-content { align-items: flex-end; }
+  .msg-bubble { padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.65; }
+  .msg-row.user .msg-bubble { background: var(--ink); color: #fff; border-bottom-right-radius: 4px; }
+  .msg-row.assistant .msg-bubble { background: transparent; color: var(--ink); padding-left: 0; font-size: 14.5px; }
 
-  /* ── TREATMENT CARDS ── */
-  .chat-cards { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
-  .chat-card {
-    background: #fff; border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 12px;
-    text-decoration: none; color: var(--ink); display: block;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .chat-card:hover { border-color: var(--green-mid); background: var(--green-light); }
-  .chat-card-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-  .chat-card-meta { font-size: 11px; color: var(--ink-light); display: flex; gap: 8px; flex-wrap: wrap; }
-  .chat-card-meta .cc-price { color: var(--ink-mid); font-weight: 500; }
-  .chat-card-meta .cc-rating { color: var(--green); }
-  .chat-card-arrow { float: right; color: var(--green-mid); font-size: 13px; }
+  /* ── Treatment cards ── */
+  .chat-cards { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .chat-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; text-decoration: none; color: var(--ink); display: block; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
+  .chat-card:hover { border-color: var(--red); box-shadow: 0 2px 16px rgba(196,18,48,0.08); transform: translateY(-1px); }
+  .chat-card-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 3px; }
+  .chat-card-name { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .chat-card-desc { font-size: 12px; color: var(--ink-mid); line-height: 1.5; margin-bottom: 8px; }
+  .chat-card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .chat-card-meta { display: flex; gap: 10px; font-size: 11px; color: var(--ink-light); }
+  .chat-card-meta .cc-price { color: var(--ink); font-weight: 700; }
+  .chat-card-meta .cc-rating { color: #e6a817; }
+  .chat-card-link { font-size: 10px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.08em; }
 
-  /* ── CLINIC CARDS ── */
-  .clinic-cards { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
-  .clinic-card {
-    background: #fff; border: 1px solid var(--border);
-    border-radius: 12px; padding: 12px 14px;
-    text-decoration: none; color: var(--ink); display: block;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-  .clinic-card:hover { border-color: var(--green-mid); box-shadow: 0 2px 12px rgba(29,158,117,0.1); }
+  /* ── Article cards (slot) ── */
+  .article-cards { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; }
+  .article-card { background: #fafafa; border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; text-decoration: none; color: var(--ink); display: flex; gap: 12px; align-items: center; transition: border-color 0.15s; }
+  .article-card:hover { border-color: var(--ink-mid); }
+  .article-icon { font-size: 18px; flex-shrink: 0; }
+  .article-body { flex: 1; min-width: 0; }
+  .article-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mid); margin-bottom: 2px; }
+  .article-title { font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .article-arrow { font-size: 13px; color: var(--ink-light); }
+
+  /* ── Photo cards (slot) ── */
+  .photo-cards { display: flex; gap: 8px; margin-top: 8px; overflow-x: auto; padding-bottom: 4px; }
+  .photo-card { background: #f0f0f0; border: 1px solid var(--border); border-radius: 10px; min-width: 130px; overflow: hidden; text-decoration: none; flex-shrink: 0; transition: border-color 0.15s; }
+  .photo-card:hover { border-color: var(--red); }
+  .photo-placeholder { height: 80px; background: linear-gradient(135deg,#e8e8e8,#d0d0d0); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .photo-card-label { font-size: 10px; font-weight: 600; padding: 5px 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-mid); }
+
+  /* ── Clinic cards ── */
+  .clinic-cards { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .clinic-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; text-decoration: none; color: var(--ink); display: block; transition: border-color 0.15s, box-shadow 0.15s; }
+  .clinic-card:hover { border-color: var(--red); box-shadow: 0 2px 12px rgba(196,18,48,0.08); }
   .clinic-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
-  .clinic-name { font-size: 13px; font-weight: 500; }
-  .clinic-rating {
-    font-size: 11px; color: var(--green);
-    background: var(--green-light);
-    padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0;
-  }
-  .clinic-address { font-size: 12px; color: var(--ink-light); margin-bottom: 7px; }
+  .clinic-name { font-size: 14px; font-weight: 700; }
+  .clinic-rating { font-size: 11px; color: #e6a817; background: #fffbf0; border: 1px solid #fde68a; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; }
+  .clinic-address { font-size: 12px; color: var(--ink-mid); margin-bottom: 8px; }
   .clinic-footer { display: flex; align-items: center; justify-content: space-between; }
-  .clinic-phone { font-size: 12px; color: var(--green-dark); font-weight: 500; }
-  .clinic-link { font-size: 11px; color: var(--green); }
+  .clinic-phone { font-size: 12px; font-weight: 600; }
+  .clinic-cta { font-size: 10px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.08em; }
 
-  /* ── CHIPS ── */
-  .chips-wrap { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
-  .chip {
-    background: #fff; border: 1px solid #e4e3df;
-    border-radius: 14px; padding: 11px 15px;
-    font-size: 14px; cursor: pointer; text-align: left;
-    color: var(--ink); font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s; line-height: 1.4;
-  }
-  .chip:hover { background: var(--green-light); border-color: var(--green-mid); color: var(--green-dark); }
+  /* ── Chips ── */
+  .chips-wrap { display: flex; flex-direction: column; gap: 7px; margin: 8px 0 4px 38px; }
+  .chip { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 13.5px; cursor: pointer; text-align: left; color: var(--ink); font-family: 'Inter', sans-serif; transition: all 0.15s; line-height: 1.4; }
+  .chip:hover { background: #fef2f4; border-color: var(--red); color: var(--red-dark); }
 
-  /* ── TYPING ── */
-  .typing-row { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 8px; }
-  .typing-bubble {
-    background: #f4f3f0; border-radius: 18px 18px 18px 4px;
-    padding: 13px 16px; display: flex; gap: 5px; align-items: center;
-  }
-  .typing-dot {
-    width: 7px; height: 7px; border-radius: 50%; background: #bbb;
-    animation: typing 1.3s ease-in-out infinite;
-  }
+  /* ── Typing ── */
+  .typing-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 4px; }
+  .typing-bubble { padding: 14px 4px; display: flex; gap: 5px; align-items: center; }
+  .typing-dot { width: 7px; height: 7px; border-radius: 50%; background: #ccc; animation: typing 1.3s ease-in-out infinite; }
   .typing-dot:nth-child(2) { animation-delay: 0.18s; }
   .typing-dot:nth-child(3) { animation-delay: 0.36s; }
-  @keyframes typing {
-    0%,100% { opacity: 0.3; transform: translateY(0); }
-    50% { opacity: 1; transform: translateY(-3px); }
-  }
+  @keyframes typing { 0%,100%{opacity:0.3;transform:translateY(0)} 50%{opacity:1;transform:translateY(-3px)} }
 
-  /* ── INPUT ── */
-  .input-area {
-    padding: 12px 14px; border-top: 1px solid var(--border);
-    display: flex; gap: 8px; align-items: center;
-    flex-shrink: 0; background: #fff;
-  }
-  .chat-input {
-    flex: 1; border: 1.5px solid #e4e3df;
-    border-radius: 16px; padding: 11px 16px;
-    font-family: 'DM Sans', sans-serif; font-size: 14px;
-    background: var(--cream); color: var(--ink);
-    outline: none; transition: border-color 0.15s;
-  }
-  .chat-input:focus { border-color: var(--green-mid); background: #fff; }
+  /* ── Input ── */
+  .chat-input-wrap { flex-shrink: 0; background: var(--white); border-top: 1px solid var(--border); }
+  .chat-input-inner { max-width: 760px; margin: 0 auto; padding: 12px 24px; display: flex; gap: 10px; align-items: center; }
+  .chat-input { flex: 1; border: 1.5px solid #e0e0e0; border-radius: 10px; padding: 11px 16px; font-family: 'Inter', sans-serif; font-size: 14px; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.15s, background 0.15s; }
+  .chat-input:focus { border-color: var(--red); background: var(--white); }
   .chat-input::placeholder { color: var(--ink-light); }
-  .send-btn {
-    width: 44px; height: 44px; border-radius: 14px;
-    background: var(--green); border: none; color: #fff;
-    font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; transition: background 0.15s, transform 0.1s;
-  }
-  .send-btn:hover:not(:disabled) { background: var(--green-dark); }
+  .send-btn { width: 42px; height: 42px; border-radius: 8px; background: var(--red); border: none; color: #fff; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s, transform 0.1s; }
+  .send-btn:hover:not(:disabled) { background: var(--red-dark); }
   .send-btn:active:not(:disabled) { transform: scale(0.94); }
-  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .footer-note {
-    text-align: center; font-size: 10px; color: var(--ink-light);
-    padding: 5px 14px 10px; background: #fff;
-  }
+  .send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .footer-note { text-align: center; font-size: 10px; color: var(--ink-light); padding: 4px 14px 10px; }
 
-  /* ── PANEL ENLACES ── */
-  .links-overlay {
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,0.3); z-index: 50;
-    opacity: 0; pointer-events: none; transition: opacity 0.25s;
-  }
+  /* ── Panel enlaces ── */
+  .links-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.25); z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
   .links-overlay.open { opacity: 1; pointer-events: all; }
-  .links-panel {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: #fff; border-radius: 20px 20px 0 0;
-    padding: 0 0 24px; max-height: 65vh; overflow-y: auto;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-    z-index: 51;
-  }
+  .links-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--white); border-radius: 20px 20px 0 0; padding: 0 0 28px; max-height: 60vh; overflow-y: auto; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32,0.72,0,1); z-index: 51; }
   .links-panel.open { transform: translateY(0); }
-  .links-handle { width: 36px; height: 4px; background: #ddd; border-radius: 2px; margin: 12px auto 16px; }
-  .links-title { font-size: 14px; font-weight: 500; padding: 0 18px 12px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
-  .links-empty { font-size: 13px; color: var(--ink-light); padding: 8px 18px; }
-  .link-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 11px 18px; text-decoration: none; color: var(--ink);
-    transition: background 0.15s;
-  }
-  .link-item:hover { background: var(--cream); }
-  .link-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .links-handle { width: 36px; height: 4px; background: #e0e0e0; border-radius: 2px; margin: 12px auto 16px; }
+  .links-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 0 20px 12px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+  .links-empty { font-size: 13px; color: var(--ink-light); padding: 8px 20px; }
+  .link-item { display: flex; align-items: center; gap: 12px; padding: 11px 20px; text-decoration: none; color: var(--ink); transition: background 0.15s; }
+  .link-item:hover { background: var(--bg); }
+  .link-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
   .link-item-text { flex: 1; min-width: 0; }
-  .link-item-name { font-size: 13px; font-weight: 500; }
+  .link-item-name { font-size: 13px; font-weight: 600; }
   .link-item-url { font-size: 11px; color: var(--ink-light); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .link-arrow { font-size: 12px; color: var(--green-mid); }
+  .link-arrow { font-size: 13px; color: var(--ink-light); }
+
+  @media (max-width: 600px) {
+    .site-nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .hero { padding: 36px 16px 32px; }
+    .hero h1 { font-size: 30px; }
+    .content { padding: 0 16px; }
+    .cards-grid { grid-template-columns: repeat(2,1fr); }
+    .chat-messages { padding: 20px 16px 12px; }
+    .chat-input-inner { padding: 10px 16px; }
+    .chips-wrap { margin-left: 0; }
+  }
 </style>
 </head>
 <body>
-<div class="app">
 
-  <div class="header">
-    <div class="header-avatar">V</div>
-    <div class="header-info">
-      <strong>Vera</strong>
-      <div class="header-status">
-        <div class="status-dot"></div>
-        <span>Asistente de exploración estética</span>
+<!-- ══ WEB LAYER ══ -->
+<div class="web">
+  <nav class="site-nav">
+    <div class="site-logo">MULTIESTETICA<span class="site-logo-dot">.</span><span class="site-logo-sub">by RealSelf</span></div>
+    <ul class="nav-links">
+      <li><a href="#">Tratamientos</a></li>
+      <li><a href="#">Doctores</a></li>
+      <li><a href="#">Experiencias</a></li>
+      <li><a href="#">Antes y Después</a></li>
+      <li><a href="#" class="nav-cta">Acceder</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-label">Tu guía de medicina estética</p>
+    <h1>ENCUENTRA TU DOCTOR,<br><em>REDEFINE TU BELLEZA</em></h1>
+    <p>Opiniones reales · Información · Doctores certificados</p>
+    <div class="search-bar">
+      <input type="text" placeholder="Tratamiento, clínica, experiencia...">
+      <button>Buscar</button>
+    </div>
+    <div class="search-tags">
+      <span class="search-tag">Rinoplastia</span>
+      <span class="search-tag">Ácido hialurónico</span>
+      <span class="search-tag">Liposucción</span>
+      <span class="search-tag">Lifting facial</span>
+      <span class="search-tag">Abdominoplastia</span>
+    </div>
+    <div class="vera-entry" onclick="openChat()">
+      <div class="vera-entry-avatar">V</div>
+      <div class="vera-entry-text">
+        <strong>¿No sabes qué tratamiento necesitas? Habla con Vera</strong>
+        <span>Tu asistente de exploración estética · Responde al instante</span>
       </div>
+      <span class="vera-entry-arrow">→</span>
     </div>
-    <div class="header-actions">
-      <button class="header-btn" onclick="toggleLinks()">🔗 Enlaces</button>
-      <button class="header-btn" onclick="resetChat()">↺ Nueva</button>
+  </section>
+
+  <div class="content">
+    <div class="section-header">
+      <h2>Tratamientos destacados</h2>
+      <a href="#">Ver todos →</a>
+    </div>
+    <div class="cards-grid">
+      <div class="card"><div class="card-img">👃</div><div class="card-body"><h3>Rinoplastia</h3><div class="card-meta"><span class="price">Desde 3.200 €</span><span class="rating">★ 89%</span></div></div></div>
+      <div class="card"><div class="card-img">💉</div><div class="card-body"><h3>Ácido hialurónico</h3><div class="card-meta"><span class="price">Desde 250 €</span><span class="rating">★ 91%</span></div></div></div>
+      <div class="card"><div class="card-img">✂️</div><div class="card-body"><h3>Liposucción</h3><div class="card-meta"><span class="price">Desde 2.800 €</span><span class="rating">★ 88%</span></div></div></div>
+      <div class="card"><div class="card-img">🌟</div><div class="card-body"><h3>Lifting facial</h3><div class="card-meta"><span class="price">Desde 4.500 €</span><span class="rating">★ 85%</span></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GLOBITO ══ -->
+<button class="chat-launcher" id="launcher" onclick="openChat()">
+  <div class="launcher-dot"></div>
+  Habla con Vera
+</button>
+
+<!-- ══ CHAT OVERLAY ══ -->
+<div class="chat-overlay" id="chatOverlay">
+  <div class="chat-header">
+    <div class="chat-logo">MULTIESTETICA<span class="chat-logo-dot">.</span><span class="chat-logo-sub">by RealSelf</span></div>
+    <div class="chat-actions">
+      <button class="icon-btn" onclick="resetChat()" title="Nueva conversación">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.67"></path></svg>
+      </button>
+      <div class="icon-divider"></div>
+      <button class="icon-btn" onclick="toggleLinks()" title="Enlaces">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+      </button>
+      <div class="icon-divider"></div>
+      <button class="icon-btn" onclick="closeChat()" title="Minimizar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </button>
     </div>
   </div>
 
-  <div class="messages" id="messages"></div>
+  <div class="chat-messages" id="messages"></div>
 
-  <div class="input-area">
-    <input type="text" class="chat-input" id="chatInput"
-      placeholder="Escríbeme tu pregunta..."
-      onkeydown="if(event.key==='Enter') sendMessage()">
-    <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>↑</button>
+  <div class="chat-input-wrap">
+    <div class="chat-input-inner">
+      <input type="text" class="chat-input" id="chatInput"
+        placeholder="Escríbeme tu pregunta..."
+        onkeydown="if(event.key==='Enter') sendMessage()">
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>↑</button>
+    </div>
+    <div class="footer-note">Vera orienta, no diagnostica · Consulta siempre con un especialista</div>
   </div>
-  <div class="footer-note">Vera orienta, no diagnostica · Consulta siempre con un especialista</div>
 
   <div class="links-overlay" id="linksOverlay" onclick="toggleLinks()"></div>
   <div class="links-panel" id="linksPanel">
     <div class="links-handle"></div>
-    <div class="links-title">🔗 Enlaces de esta conversación</div>
+    <div class="links-title">Enlaces de esta conversación</div>
     <div id="linksList"><div class="links-empty">Aún no hay enlaces en esta conversación.</div></div>
   </div>
 </div>
 
 <script>
   const API_URL = "https://vera-chatbot-ai.up.railway.app/api/chat";
+  const COOKIE_KEY = "vera_conv";
 
   const CHIPS_INICIO = [
     "🔍 Quiero mejorar algo pero no sé qué tratamiento",
@@ -292,213 +350,199 @@
     "✈️ Vivo fuera y quiero hacerme un tratamiento en España",
   ];
 
-  let messages = [];
-  let isLoading = false;
-  let collectedLinks = [];
-  let linksInitialized = false;
+  let messages = [], isLoading = false, collectedLinks = [], linksInitialized = false, chatStarted = false;
 
   const messagesEl = document.getElementById("messages");
   const input = document.getElementById("chatInput");
   const sendBtn = document.getElementById("sendBtn");
 
-  input.addEventListener("input", () => {
-    sendBtn.disabled = !input.value.trim() || isLoading;
-  });
+  input.addEventListener("input", () => { sendBtn.disabled = !input.value.trim() || isLoading; });
 
-  function init() {
-    addMessage("assistant", "Hola, soy Vera 👋\n¿Qué te trae por aquí hoy? Puedes contármelo con tus palabras o empezar por una de estas opciones:", [], []);
-    renderChips(CHIPS_INICIO);
+  // ── Cookie ──
+  function saveSession() {
+    try { document.cookie = `${COOKIE_KEY}=${encodeURIComponent(JSON.stringify({messages,collectedLinks}))};max-age=86400;path=/`; } catch(e){}
+  }
+  function loadSession() {
+    try { const m = document.cookie.match(new RegExp(`${COOKIE_KEY}=([^;]+)`)); if(m) return JSON.parse(decodeURIComponent(m[1])); } catch(e){}
+    return null;
+  }
+  function clearSession() { document.cookie = `${COOKIE_KEY}=;max-age=0;path=/`; }
+
+  // ── Open/close ──
+  function openChat() {
+    document.getElementById("chatOverlay").classList.add("open");
+    document.getElementById("launcher").style.display = "none";
+    if (!chatStarted) { chatStarted = true; initChat(); }
+    setTimeout(() => input.focus(), 300);
+  }
+  function closeChat() {
+    document.getElementById("chatOverlay").classList.remove("open");
+    document.getElementById("launcher").style.display = "flex";
+  }
+
+  function initChat() {
+    const saved = loadSession();
+    if (saved?.messages?.length > 1) {
+      messages = saved.messages;
+      collectedLinks = saved.collectedLinks || [];
+      restoreConversation();
+    } else {
+      addMessage("assistant","Hola, soy Vera 👋\n¿Qué te trae por aquí hoy? Puedes contármelo con tus palabras o empezar por una de estas opciones:",[],[]);
+      renderChips(CHIPS_INICIO);
+    }
+  }
+
+  function restoreConversation() {
+    messages.forEach((m,i) => {
+      if(i===0) return;
+      const row = document.createElement("div");
+      row.className = `msg-row ${m.role}`;
+      if(m.role==="assistant"){ const ic=document.createElement("div"); ic.className="vera-icon"; ic.textContent="V"; row.appendChild(ic); }
+      const mc=document.createElement("div"); mc.className="msg-content";
+      const b=document.createElement("div"); b.className="msg-bubble"; b.innerHTML=formatText(m.content);
+      mc.appendChild(b); row.appendChild(mc); messagesEl.appendChild(row);
+    });
+    if(collectedLinks.length){ linksInitialized=true; const l=document.getElementById("linksList"); l.innerHTML=""; collectedLinks.forEach(x=>renderLinkItem(x.name,x.url)); }
+    scrollBottom();
   }
 
   function resetChat() {
-    messages = [];
-    collectedLinks = [];
-    linksInitialized = false;
-    messagesEl.innerHTML = "";
-    document.getElementById("linksList").innerHTML = '<div class="links-empty">Aún no hay enlaces en esta conversación.</div>';
-    input.value = "";
-    sendBtn.disabled = true;
-    init();
+    messages=[]; collectedLinks=[]; linksInitialized=false; clearSession();
+    messagesEl.innerHTML="";
+    document.getElementById("linksList").innerHTML='<div class="links-empty">Aún no hay enlaces en esta conversación.</div>';
+    input.value=""; sendBtn.disabled=true;
+    addMessage("assistant","Hola, soy Vera 👋\n¿Qué te trae por aquí hoy? Puedes contármelo con tus palabras o empezar por una de estas opciones:",[],[]);
+    renderChips(CHIPS_INICIO);
   }
 
+  // ── Links panel ──
   function toggleLinks() {
-    const overlay = document.getElementById("linksOverlay");
-    const panel = document.getElementById("linksPanel");
-    const isOpen = panel.classList.contains("open");
-    overlay.classList.toggle("open", !isOpen);
-    panel.classList.toggle("open", !isOpen);
+    const o=document.getElementById("linksOverlay"), p=document.getElementById("linksPanel");
+    const open=p.classList.contains("open");
+    o.classList.toggle("open",!open); p.classList.toggle("open",!open);
   }
-
-  function addLink(name, url) {
-    if (!url || collectedLinks.find(l => l.url === url)) return;
-    collectedLinks.push({ name, url });
-    const list = document.getElementById("linksList");
-    if (!linksInitialized) {
-      list.innerHTML = "";
-      linksInitialized = true;
-    }
-    const a = document.createElement("a");
-    a.className = "link-item";
-    a.href = url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.innerHTML = `
-      <div class="link-dot"></div>
-      <div class="link-item-text">
-        <div class="link-item-name">${name}</div>
-        <div class="link-item-url">${url.replace("https://www.multiestetica.com", "multiestetica.com")}</div>
-      </div>
-      <span class="link-arrow">→</span>`;
+  function renderLinkItem(name,url) {
+    const list=document.getElementById("linksList");
+    const a=document.createElement("a"); a.className="link-item"; a.href=url; a.target="_blank"; a.rel="noopener noreferrer";
+    a.innerHTML=`<div class="link-dot"></div><div class="link-item-text"><div class="link-item-name">${name}</div><div class="link-item-url">${url.replace("https://www.multiestetica.com","multiestetica.com")}</div></div><span class="link-arrow">→</span>`;
     list.appendChild(a);
   }
-
-  function renderChips(chipLabels) {
-    const wrap = document.createElement("div");
-    wrap.className = "chips-wrap";
-    chipLabels.forEach(label => {
-      const isOtro = label.toLowerCase().includes("otro") || label.toLowerCase().includes("other");
-      const isVerToda = label.toLowerCase().includes("ver toda");
-      if (isOtro) {
-        const inp = document.createElement("input");
-        inp.type = "text";
-        inp.className = "chip";
-        inp.placeholder = "Escribe aquí...";
-        inp.style.cursor = "text";
-        inp.style.background = "#fff";
-        inp.onkeydown = (e) => {
-          if (e.key === "Enter" && inp.value.trim()) { wrap.remove(); sendMessage(inp.value.trim()); }
-        };
-        wrap.appendChild(inp);
-      } else {
-        const btn = document.createElement("button");
-        btn.className = "chip";
-        btn.textContent = label;
-        btn.onclick = () => { wrap.remove(); sendMessage(label); };
-        wrap.appendChild(btn);
-      }
-    });
-    messagesEl.appendChild(wrap);
-    scrollBottom();
+  function addLink(name,url) {
+    if(!url||collectedLinks.find(l=>l.url===url)) return;
+    collectedLinks.push({name,url});
+    const list=document.getElementById("linksList");
+    if(!linksInitialized){ list.innerHTML=""; linksInitialized=true; }
+    renderLinkItem(name,url);
   }
 
-  function addMessage(role, content, cards = [], clinics = []) {
-    messages.push({ role, content });
-    const row = document.createElement("div");
-    row.className = `msg-row ${role}`;
-    if (role === "assistant") {
-      const avatar = document.createElement("div");
-      avatar.className = "msg-avatar";
-      avatar.textContent = "V";
-      row.appendChild(avatar);
-    }
-    const bubble = document.createElement("div");
-    bubble.className = "msg-bubble";
-    bubble.innerHTML = content
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/^- (.+)/gm, "<li>$1</li>")
-      .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul style="padding-left:16px;margin-top:8px;display:flex;flex-direction:column;gap:5px;">$1</ul>')
-      .replace(/\n/g, "<br>");
+  // ── Format ──
+  function formatText(t) {
+    return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>")
+      .replace(/^- (.+)/gm,"<li>$1</li>")
+      .replace(/(<li>[\s\S]*?<\/li>)/g,'<ul style="padding-left:16px;margin-top:8px;display:flex;flex-direction:column;gap:5px;">$1</ul>')
+      .replace(/\n/g,"<br>");
+  }
 
-    if (cards?.length) {
-      const cardsEl = document.createElement("div");
-      cardsEl.className = "chat-cards";
-      cards.forEach(card => {
-        const a = document.createElement("a");
-        a.className = "chat-card";
-        a.href = card.url || "#";
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.innerHTML = `
-          <span class="chat-card-arrow">→</span>
-          <div class="chat-card-name">${card.name}</div>
-          <div class="chat-card-meta">
-            ${card.price ? `<span class="cc-price">Desde ${card.price.toLocaleString()} €</span>` : ""}
-            ${card.worthIt ? `<span class="cc-rating">★ ${card.worthIt}</span>` : ""}
-            ${card.reviews ? `<span>${card.reviews} exp.</span>` : ""}
-          </div>`;
-        cardsEl.appendChild(a);
-        if (card.url) addLink(card.name, card.url);
-      });
-      bubble.appendChild(cardsEl);
-    }
+  // ── Chips ──
+  function renderChips(labels) {
+    const wrap=document.createElement("div"); wrap.className="chips-wrap";
+    labels.forEach(label => {
+      const isOtro=label.toLowerCase().includes("otro")||label.toLowerCase().includes("other");
+      if(isOtro) {
+        const inp=document.createElement("input"); inp.type="text"; inp.className="chip";
+        inp.placeholder="Escribe aquí..."; inp.style.cursor="text"; inp.style.background="#fff";
+        inp.onkeydown=(e)=>{ if(e.key==="Enter"&&inp.value.trim()){ wrap.remove(); sendMessage(inp.value.trim()); }};
+        wrap.appendChild(inp);
+      } else {
+        const btn=document.createElement("button"); btn.className="chip"; btn.textContent=label;
+        btn.onclick=()=>{ wrap.remove(); sendMessage(label); }; wrap.appendChild(btn);
+      }
+    });
+    messagesEl.appendChild(wrap); scrollBottom();
+  }
 
-    if (clinics?.length) {
-      const clinicsEl = document.createElement("div");
-      clinicsEl.className = "clinic-cards";
-      clinics.forEach(clinic => {
-        const a = document.createElement("a");
-        a.className = "clinic-card";
-        a.href = clinic.url || "#";
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.innerHTML = `
-          <div class="clinic-header">
-            <div class="clinic-name">${clinic.name}</div>
-            ${clinic.rating ? `<div class="clinic-rating">★ ${clinic.rating} (${clinic.reviews || 0})</div>` : ""}
-          </div>
-          <div class="clinic-address">📍 ${clinic.address || clinic.ciudad}</div>
-          <div class="clinic-footer">
-            ${clinic.phone ? `<div class="clinic-phone">${clinic.phone}</div>` : "<div></div>"}
-            <div class="clinic-link">Ver perfil →</div>
-          </div>`;
-        clinicsEl.appendChild(a);
-        if (clinic.url) addLink(clinic.name, clinic.url);
-      });
-      bubble.appendChild(clinicsEl);
+  // ── Add message ──
+  function addMessage(role,content,cards=[],clinics=[],articles=[],photos=[]) {
+    messages.push({role,content});
+    const row=document.createElement("div"); row.className=`msg-row ${role}`;
+    if(role==="assistant"){ const ic=document.createElement("div"); ic.className="vera-icon"; ic.textContent="V"; row.appendChild(ic); }
+    const mc=document.createElement("div"); mc.className="msg-content";
+    if(role==="user") mc.style.alignItems="flex-end";
+    const bubble=document.createElement("div"); bubble.className="msg-bubble";
+    bubble.innerHTML=formatText(content);
+
+    if(cards?.length) {
+      const el=document.createElement("div"); el.className="chat-cards";
+      cards.forEach(card=>{
+        const a=document.createElement("a"); a.className="chat-card"; a.href=card.url||"#"; a.target="_blank"; a.rel="noopener noreferrer";
+        a.innerHTML=`<div class="chat-card-tag">Tratamiento</div><div class="chat-card-name">${card.name}</div>${card.description?`<div class="chat-card-desc">${card.description.slice(0,100)}...</div>`:""}<div class="chat-card-footer"><div class="chat-card-meta">${card.price?`<span class="cc-price">Desde ${card.price.toLocaleString()} €</span>`:""} ${card.worthIt?`<span class="cc-rating">★ ${card.worthIt}</span>`:""} ${card.reviews?`<span>${card.reviews} exp.</span>`:""}</div><span class="chat-card-link">Ver más →</span></div>`;
+        el.appendChild(a); if(card.url) addLink(card.name,card.url);
+      }); bubble.appendChild(el);
     }
 
-    row.appendChild(bubble);
-    messagesEl.appendChild(row);
-    scrollBottom();
+    if(articles?.length) {
+      const el=document.createElement("div"); el.className="article-cards";
+      articles.forEach(art=>{
+        const a=document.createElement("a"); a.className="article-card"; a.href=art.url||"#"; a.target="_blank"; a.rel="noopener noreferrer";
+        a.innerHTML=`<div class="article-icon">📄</div><div class="article-body"><div class="article-tag">Artículo</div><div class="article-title">${art.title}</div></div><span class="article-arrow">→</span>`;
+        el.appendChild(a); if(art.url) addLink(art.title,art.url);
+      }); bubble.appendChild(el);
+    }
+
+    if(photos?.length) {
+      const el=document.createElement("div"); el.className="photo-cards";
+      photos.forEach(photo=>{
+        const a=document.createElement("a"); a.className="photo-card"; a.href=photo.url||"#"; a.target="_blank"; a.rel="noopener noreferrer";
+        a.innerHTML=`<div class="photo-placeholder">📸</div><div class="photo-card-label">Antes / Después</div>`;
+        el.appendChild(a);
+      }); bubble.appendChild(el);
+    }
+
+    if(clinics?.length) {
+      const el=document.createElement("div"); el.className="clinic-cards";
+      clinics.forEach(clinic=>{
+        const a=document.createElement("a"); a.className="clinic-card"; a.href=clinic.url||"#"; a.target="_blank"; a.rel="noopener noreferrer";
+        a.innerHTML=`<div class="clinic-header"><div class="clinic-name">${clinic.name}</div>${clinic.rating?`<div class="clinic-rating">★ ${clinic.rating} (${clinic.reviews||0})</div>`:""}</div><div class="clinic-address">📍 ${clinic.address||clinic.ciudad}</div><div class="clinic-footer">${clinic.phone?`<div class="clinic-phone">${clinic.phone}</div>`:"<div></div>"}<div class="clinic-cta">Ver perfil →</div></div>`;
+        el.appendChild(a); if(clinic.url) addLink(clinic.name,clinic.url);
+      }); bubble.appendChild(el);
+    }
+
+    mc.appendChild(bubble); row.appendChild(mc); messagesEl.appendChild(row);
+    scrollBottom(); saveSession();
   }
 
   function showTyping() {
-    const row = document.createElement("div");
-    row.className = "typing-row";
-    row.id = "typingIndicator";
-    row.innerHTML = `<div class="msg-avatar">V</div><div class="typing-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-    messagesEl.appendChild(row);
-    scrollBottom();
+    const row=document.createElement("div"); row.className="typing-row"; row.id="typingIndicator";
+    row.innerHTML=`<div class="vera-icon">V</div><div class="typing-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+    messagesEl.appendChild(row); scrollBottom();
   }
-
   function hideTyping() { document.getElementById("typingIndicator")?.remove(); }
-
-  function scrollBottom() {
-    setTimeout(() => { messagesEl.scrollTop = messagesEl.scrollHeight; }, 50);
-  }
+  function scrollBottom() { setTimeout(()=>{ messagesEl.scrollTop=messagesEl.scrollHeight; },50); }
 
   async function sendMessage(text) {
-    const content = text || input.value.trim();
-    if (!content || isLoading) return;
-    input.value = "";
-    sendBtn.disabled = true;
+    const content=text||input.value.trim();
+    if(!content||isLoading) return;
+    input.value=""; sendBtn.disabled=true;
     messagesEl.querySelector(".chips-wrap")?.remove();
-    addMessage("user", content);
-    isLoading = true;
-    showTyping();
+    addMessage("user",content);
+    isLoading=true; showTyping();
     try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: messages.map(m => ({ role: m.role, content: m.content })),
-        }),
+      const res=await fetch(API_URL,{
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({messages:messages.map(m=>({role:m.role,content:m.content}))})
       });
-      const data = await res.json();
+      const data=await res.json();
       hideTyping();
-      addMessage("assistant", data.reply, data.context || [], data.clinics || []);
-      if (data.chips?.length) renderChips(data.chips);
-    } catch (e) {
+      addMessage("assistant",data.reply,data.context||[],data.clinics||[],data.articles||[],data.photos||[]);
+      if(data.chips?.length) renderChips(data.chips);
+    } catch(e) {
       hideTyping();
-      addMessage("assistant", "Algo salió mal. ¿Lo intentamos de nuevo?");
+      addMessage("assistant","Algo salió mal. ¿Lo intentamos de nuevo?");
     } finally {
-      isLoading = false;
-      sendBtn.disabled = !input.value.trim();
+      isLoading=false; sendBtn.disabled=!input.value.trim();
     }
   }
-
-  init();
 </script>
 </body>
 </html>
