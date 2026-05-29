@@ -325,6 +325,7 @@
       <input type="text" class="chat-input" id="chatInput"
         placeholder="Escríbeme tu pregunta..."
         onkeydown="if(event.key==='Enter') sendMessage()">
+      <button class="send-btn mic-btn" id="micBtn" type="button" title="Usar micrófono">🗣</button>
       <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>↑</button>
     </div>
     <div class="footer-note">Vera orienta, no diagnostica · Consulta siempre con un especialista</div>
@@ -560,5 +561,6 @@
     }
   }
 </script>
+<script src="mic-input.js"></script>
 </body>
 </html>
